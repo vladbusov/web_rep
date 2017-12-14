@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Новый вопрос
+{% endblock %}
+
+{% block content %}
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th style="width: 200px;" colspan="3"> Спрашивайте ^_^ </th>
+    </tr>
+  </thead>
+  <tbody style="background-color: white; padding: 20px;">
+    <tr>
+        <td>
+          <div style="margin: 10px;">
+          <h3>Новый вопрос:</h3>
+
+          <form>
+                <div class="form-group">
+                  <label class="form-control-label" for="formGroupExampleInput">Название вопроса:</label>
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Как растет трава?">
+                </div>
+                <label class="form-control-label" for="formGroupExampleInput">Текст вопроса:</label>
+                <p><textarea name="comment" cols="60" rows="7"></textarea></p>
+                <label class="form-control-label" for="formGroupExampleInput">Теги:</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="трава, рост...">
+              </form>
+
+            <button class="btn btn-primary" type="submit" style="margin-top:20px;">Спросить</button>            
+          </div>
+        <td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

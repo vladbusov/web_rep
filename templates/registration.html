@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content %}
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th style="width: 200px;" colspan="3"> Регистрация: </th>
+    </tr>
+  </thead>
+  <tbody style="background-color: white; padding: 20px;">
+    <tr>
+        <td>
+          <div style="margin: 10px;">
+          <h3>Настройки:</h3>
+          <form>
+                <div class="alert alert-danger" role="alert">
+                        Wrong email!
+                </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="formGroupExampleInput">Login</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Login">
+              </div>
+              </div>
+            </form>
+              <form>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                  </div>
+                </div>
+              </form>
+          <form>
+                <label class="col-sm-2 col-form-label" for="formGroupExampleInput">Nickname</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nickname">
+                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Password</label>
+                <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                <label for="formGroupExampleInput" class="col-sm-2 col-form-label" style="width: 400px;">Repeat password</label>
+                <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+            </form>
+          <form>
+              <div class="form-group">
+                <label for="exampleFormControlFile1">Загрузить аватар:</label><br>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+              </div>
+            </form>
+            <button class="btn btn-primary" style="margin-bottom: 20px" type="submit">Зарегистрироваться</button>            
+          </div>
+        <td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

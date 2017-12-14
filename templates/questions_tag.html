@@ -1,0 +1,10 @@
+{% extends "question_template.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Вопросы по тегу {{ tag }}
+{% endblock %}
+
+{% block menu %}
+    Вопросы по тегу {{ tag }}: <a href="{% url 'hot' %}" id="hq">Hot questions</a> <a href="{% url 'new' %}" id="hq">New questions</a>
+{% endblock %}

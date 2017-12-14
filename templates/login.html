@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content %}
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th style="width: 200px;" colspan="3"> Login: </th>
+    </tr>
+  </thead>
+  <tbody style="background-color: white; padding: 20px;">
+    <tr>
+        <td>
+          <div style="margin: 10px;">
+          <h3>Вход:</h3>
+          <form>
+                        <div class="alert alert-danger" role="alert">
+                                Wrong password!
+                        </div>
+                <label class="col-sm-2 col-form-label" for="formGroupExampleInput">Login</label>                              
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Login">
+                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Password</label>
+              <input type="password" class="form-control" id="inputPassword2" placeholder="Password">          
+            </form>
+              
+            <button class="btn btn-primary" type="submit" style="margin-top:20px;">Войти</button>
+            <br><p><a href="#">create new accaunt!</a></p>
+          </div>
+        <td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "question_template.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Горячие вопросы
+{% endblock %}
+
+{% block menu %}
+Hot questions:  <a href="{% url 'new' %}" id="hq">New questions</a>
+{% endblock %}

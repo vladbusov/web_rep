@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Вопрос {{ id }}
+{% endblock %}
+
+{% block content %}
+    <table class="table">
+      <thead class="thead-inverse">
+        <tr>
+          <th style="width: 200px;" colspan="3">Вопрос номер {{ id }}: <a href="#" id="hq">Hot questions</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4" style="background-color: white; max-height: 400px;">
+              <div style="color: #262727">
+                  <div class = "left" id="changeColor"  style="margin-top: 50px">
+                    
+                      <figure class="figure">
+                        <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                      </figure>
+                       <p style="background-color: white; font-size: 14px; width: 40px; font-weight:bold; border-radius: 4px; padding-left: 2px; margin-bottom: 1px;"> {{ question.rating_num }}</p>
+                        <a href="#"><img src="{% static 'images/like.png' %}" id="like"/></a>
+                        <a href="#"><img src="{% static 'images/dislike.png' %}" id="like"/></a>
+                  </div>
+                  <div style="float: left; margin:20px; width: 80%;">
+                      <h4 style="text-align:center;">{{ question.title }}</h4>
+                        <hr>
+                        <p> {{ question.text }}</p>
+                        <hr>
+                        Tags:
+                        {% for tag in question.tags.all %}
+                            <a href= "{% url 'tag' tag %}" class="question-tag">{{ tag }}</a> ,
+                        {% endfor %}
+                    </div>
+                </div>
+          </td>
+        </tr>
+        {% for comment in posts %}
+        <tr>
+                <td colspan="4">
+                    <div class="thd">
+                        <div class = "left">
+                            <figure class="figure">
+                              <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                            </figure>
+                            <p style="background-color: white; font-size: 14px; width: 40px; font-weight:bold; border-radius: 4px; padding-left: 2px; margin-bottom: 1px;"> {{ comment.rating_num }}</p>
+                        <a href="#"><img src="{% static 'images/like.png' %}" id="like"/></a>
+                        <a href="#"><img src="{% static 'images/dislike.png' %}" id="like"/></a>
+                        </div>
+                        <div class="text">
+                          <p class="fish" style="margin-top: 30px;">{{ comment.content }}
+                            {% if comment.is_correct == False %}
+                              <form>
+                                    <div class="form-check" style="color:white">
+                                            <label class="form-check-label">
+                                              <input class="form-check-input" type="checkbox" value="">
+                                                Проверено
+                                            </label>
+                                          </div>
+                                          <button type="submit" class="btn btn-primary">Отметить</button>                                      
+                                </form>
+                            {% endif %}
+                          </p>
+                        </div>
+                      </div>
+                </td>
+            </tr>
+            {% endfor %}
+          <tr>
+                <td style="background-color: white; padding: 20px;">
+                    <h5>Ввести свой ответ:</h5>
+                    {{ question.author.avatar }}
+                    <form>
+                    <p><textarea name="comment" cols="60" rows="4"></textarea></p>
+                    <button type="submit" class="btn btn-primary">Ответить</button>
+                    </form>
+                </td>
+                </tr>
+         <tr>
+            <td>
+                <nav><ul class="pagination">
+                    {% if 1 == page.number %}
+                    <li class="active">
+                    {% else %}
+                    <li>
+                    {% endif %}
+                    <a href="{{ paginator.baseurl }}1"> << </a>
+                    </li>
+                    {% for p in paginator.page_range %}
+                        {% if p >= paginator.startnav %}
+                            {% if p <= paginator.endnav %}
+                                {% if p == page.number %}
+                                <li class="active">
+                                {% else %}
+                                <li>
+                                {% endif %}
+                                    <a href="{{ paginator.baseurl }}{{ p }}">
+                                    {{ p }}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if paginator.num_pages == page.number %}
+                    <li class="active">
+                    {% else %}
+                    <li>
+                    {% endif %}
+                    <a href="{{ paginator.baseurl }}{{ paginator.num_pages }}"> >> </a>
+                </ul></nav>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+    {% endblock %}

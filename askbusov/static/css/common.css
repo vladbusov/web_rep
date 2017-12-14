@@ -1,0 +1,119 @@
+.figure { width: 35px;
+	height: 35px;
+	margin-right: 3%;
+}
+
+body {
+	background-image: url(../images/penza.jpg);
+}
+
+.table {
+	width: 60%;
+}
+#hq {
+	margin-left: 15%;
+	text-decoration: underline;
+	font-size: 14px;
+}
+
+td {
+	margin-top: 10px;
+}
+
+.thd {
+	border: 4px solid #383636;
+	margin: 3px 0px;
+	padding: 5px 5px;
+	height: 150px;
+	border-radius: 0 10px 20px;
+	background-color: #343a40;
+	min-width: 200px;
+	overflow: hidden;
+}
+
+.propwin {
+	width: 60%;
+	position: relative;
+	top: -20px;
+	left: 35%;
+	color: white;
+	min-width: 300px;
+	overflow: hidden;
+}
+
+.thrProp {
+	position: relative;
+	top: -20px;
+}
+
+.marks {
+	width: 40px;
+}
+
+.fish{
+	color: white;
+	position: relative;
+	background-color: #575F68;
+	width: 60%;
+	float: left;
+	margin-left: 15%;
+	border-radius: 8px;
+	height: 70px;
+	top: -10px;
+	font-size: 12px;
+}
+.tags {
+	position: fixed;
+	width: 38%;
+	top: 80px;
+	right: 10px;
+	background-color: #BAD4E5;
+	color: #474B4E;
+}
+
+#footer {
+	position: fixed;
+	height: 40px;
+	background-color: #343a40;	
+	
+	bottom: 0px;
+	width: 100%;
+	border-top: 4px solid #474B4E; 
+}
+
+.left {
+	background-color: #474B4E;
+	width: 50px;
+	float: left;
+	margin-left: 7px;
+	border-radius: 5px;
+	padding-left: 6px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+.text {
+	height: 50px;
+	text-align: center;
+}
+.Ttl {
+	padding-bottom: 0;
+	color : white;
+	text-decoration: underline;
+	font-size: 19px;
+
+}
+#like {
+	width: 20px;
+	height: 20px;
+	margin-left: 20%;
+}
+
+.pagination {
+	font-size: 18px;
+	margin-left: 47%;
+}
+
+.active {
+	color: red;
+	text-decoration: none;
+}
