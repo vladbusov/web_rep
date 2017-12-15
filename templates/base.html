@@ -32,26 +32,33 @@
           <li class="nav-item active">
             <a class="nav-link" href="{% url 'main' %}">Форум <span class="sr-only">(current)</span></a>
           </li>
+        {% if user.first_name is not None %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'questions' 1 %}">Вопрос</a>
+            <a class="nav-link" href="{% url 'ask' %}">Задать вопрос</a>
           </li>
+        {% endif %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href=" " id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Пользователь</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
+                {% if user.first_name is None %}
               <a class="dropdown-item" href="{% url 'login' %}">Войти</a>
-              <a class="dropdown-item" href="{% url 'main' %}">Выйти</a>
-              <a class="dropdown-item" href="{% url 'settings' %}">Настройки</a>
               <a class="dropdown-item" href="{% url 'signup' %}">Зарегистрироваться</a>
+                {% else %}
+              <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+              <a class="dropdown-item" href="{% url 'settings' %}">Настройки</a>
+                {% endif %}
               <a class="dropdown-item" href="{% url 'hot' %}">Популярное для вас</a>
             </div>
           </li>
         </ul>
-        <div style="width: 200px; overflow: hidden; min-width: 200px;">
-        <h5 style="margin-right: 10px; color: white;">Сережа Сапожкин</h5>
-        </div>
+          {% if user.first_name is not None %}
+            <div style="width: 200px; overflow: hidden; min-width: 200px;">
+            <h5 style="margin-right: 10px; color: white;">{{ user.first_name }} {{ user.last_name }}</h5>
+            </div>
 		  <figure class="figure">
-  <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-  </figure>
+            <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+          </figure>
+          {% endif %}
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" placeholder="Поиск ..." aria-label="Search" type="text">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>

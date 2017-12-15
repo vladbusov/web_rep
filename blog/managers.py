@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.template.loaders import cached
+from django.core.cache import caches, cache
 
 class QuestionManager(models.Manager):
     def hot(self):
@@ -40,3 +41,14 @@ class UserManager(models.Manager):
         except self.DoesNotExist:
             return None
 
+class TagManager(models.Manager):
+    def add_qst(self, tag_str, question):
+        tag, created = self.get_or_create(name=tag_str)
+        question.tags.add(tag)
+        return tag
+
+    def by_tag(self, tag_str):
+        return self.filter(title=tag_str).first().questions.all()
+
+    def popular(self):
+        return cache.get('test')

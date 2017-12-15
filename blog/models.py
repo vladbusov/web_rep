@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from blog.managers import QuestionManager, QuestionVoteManager, UserManager
+from blog.managers import QuestionManager, QuestionVoteManager, UserManager, TagManager
 
 class UserProfile(models.Model):
     avatar = models.ImageField(null=True, blank=True, verbose_name=u"аватар",upload_to='static/images/')
@@ -17,11 +17,10 @@ class UserProfile(models.Model):
 
 
 
-
 class Question(models.Model):
 	title = models.CharField(max_length=255, verbose_name="заголовок")
 	text = models.TextField(verbose_name="текст")
-	author = models.ForeignKey(UserProfile, verbose_name="автор")
+	author = models.ForeignKey(User, verbose_name="автор")
 	tags = models.ManyToManyField("Tag")
 	rating_num = models.IntegerField(verbose_name='рейтинг', default=0)
 	added_on = models.DateTimeField(verbose_name='дата и время добавления', auto_now_add=True)
@@ -51,6 +50,7 @@ class Answer(models.Model):
 
 class Tag(models.Model):
 	name = models.CharField(max_length=255, verbose_name="имя")
+	objects = TagManager()
 
 	def __str__(self):
 		return self.name

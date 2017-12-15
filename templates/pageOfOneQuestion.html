@@ -69,17 +69,7 @@
                 </td>
             </tr>
             {% endfor %}
-          <tr>
-                <td style="background-color: white; padding: 20px;">
-                    <h5>Ввести свой ответ:</h5>
-                    {{ question.author.avatar }}
-                    <form>
-                    <p><textarea name="comment" cols="60" rows="4"></textarea></p>
-                    <button type="submit" class="btn btn-primary">Ответить</button>
-                    </form>
-                </td>
-                </tr>
-         <tr>
+            <tr>
             <td>
                 <nav><ul class="pagination">
                     {% if 1 == page.number %}
@@ -112,6 +102,31 @@
                 </ul></nav>
             </td>
           </tr>
+        {% if user_name is not None %}
+          <tr>
+                <td style="background-color: white; padding: 20px;">
+                    <h5>Ввести свой ответ:</h5>
+                    <form class="form-horizontal" method="post" >
+                    {% csrf_token %}
+                    <fieldset>
+                    {% for field in form %}
+                        <div class="control_group"
+                             {% if field.errors %}has-error{% endif %}>
+                            <label class="control-label">{{ field.label }}</label>
+                            <div class="controls">{{ field }}</div>
+                        </div>
+                    {% endfor %}
+                    </fieldset>
+                <div class="form-actions"><br/>
+                    <button type="submit" class="btn btn-primary">
+                        Ответить
+                    </button>
+                </div>
+                </form>
+                </td>
+                </tr>
+        {% endif %}
+
       </tbody>
     </table>
     {% endblock %}

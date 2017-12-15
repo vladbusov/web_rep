@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+
 {% block title %}
     Регистрация
 {% endblock %}
@@ -16,19 +17,34 @@
     <tr>
         <td>
           <div style="margin: 10px;">
-          <h3>Вход:</h3>
-          <form>
-                        <div class="alert alert-danger" role="alert">
-                                Wrong password!
+            <h3>Вход:</h3>
+            {% if error != None %}
+                <div class="alert alert-danger"> Неверные данные </div>
+            {% endif %}
+            {% for e in form.none_field_errors %}
+              <div class="alert alert-danger">{{ e }}</div>
+            {% endfor %}
+            <form class="form-horizontal" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+                <fieldset>
+                    {% for field in form %}
+                        <div class="control_group"
+                             {% if field.errors %}has-error{% endif %}>
+                            <label class="control-label">{{ field.label }}</label>
+                            <div class="controls">{{ field }}</div>
                         </div>
-                <label class="col-sm-2 col-form-label" for="formGroupExampleInput">Login</label>                              
-                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Login">
-                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Password</label>
-              <input type="password" class="form-control" id="inputPassword2" placeholder="Password">          
+                    {% endfor %}
+                </fieldset>
+                <div class="form-actions"><br/>
+                    <button type="submit" class="btn btn-primary">
+                        Войти
+                    </button>
+                </div>
             </form>
-              
-            <button class="btn btn-primary" type="submit" style="margin-top:20px;">Войти</button>
-            <br><p><a href="#">create new accaunt!</a></p>
+
+
+            <br>
+            <p><a href="{% url 'signup' %}">create new accaunt!</a></p>
           </div>
         <td>
     </tr>

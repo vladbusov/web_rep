@@ -9,7 +9,31 @@
     <table class="table">
       <thead class="thead-inverse">
         <tr>
-          <th style="width: 200px;" colspan="3"> Добро пожаловать на главную страницу: <a href="{% url 'hot' %}" id="hq">Hot questions</a> <a href="{% url 'new' %}" id="hq">New questions</a> </th>
+          <th style="width: 200px;" colspan="3">
+              {% if success == None %}
+                    Добро пожаловать на главную страницу:
+              {% else %}
+                  {% if success == 'login' %}
+                    Вы успешно авторизовались!
+                  {% endif %}
+                  {% if success == 'logout' %}
+                    Вы покинули сайт!
+                  {% endif %}
+                  {% if success == 'relog' %}
+                    Вы уже вошли!
+                  {% endif %}
+                  {% if success == 'notlogin' %}
+                      Вы должны сначала <a href="{% url 'login' %}">Войти</a> или <a href="{% url 'signup' %}">Зарегистрироваться</a>!
+                  {% endif %}
+                  {% if success == 'saveset' %}
+                    Настройки успешно сохранены!
+                  {% endif %}
+                  {% if success == 'reg' %}
+                    Вы успешно зарегистрировались!
+                  {% endif %}
+              {% endif %}
+
+              <a href="{% url 'hot' %}" id="hq">Hot questions</a> <a href="{% url 'new' %}" id="hq">New questions</a> </th>
         </tr>
       </thead>
 
