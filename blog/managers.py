@@ -52,3 +52,4 @@ class TagManager(models.Manager):
 
     def popular(self):
         return cache.get('test')
+

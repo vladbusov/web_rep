@@ -4,7 +4,7 @@ from django.conf.urls import url
 from django.urls import reverse
 from django.views.generic import TemplateView
 from django.http import HttpResponse, Http404, HttpResponseBadRequest,  JsonResponse, HttpResponseRedirect
-from .models import Question, Answer, Tag, Vote
+from .models import Question, Answer, Tag,  QuestionLike, AnswerLike
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
@@ -13,6 +13,8 @@ from django.db import IntegrityError
 from django.core import validators, serializers
 from . import urls
 from .forms import LoginForm, UserRegistrationForm, AskForm, AnswerForm
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 import re
 
 questions_per_page = 3
@@ -247,3 +249,45 @@ def ask_quest(request):
 
     form = AskForm()
     return render(request, 'newquestion.html', {'form':form, })
+
+
+@csrf_exempt
+def app_like(request):
+    is_questions = request.POST.get("question", True)
+    id = request.POST.get("id", None)
+    is_like = request.POST.get("is_like", True)
+    rating = 0
+    if not request.user.is_authenticated():
+        return JsonResponse({'status': 'error',
+                             'message': 'Эта операция доступна только авторизованным пользователям'})
+    if not id:
+        return JsonResponse({'status': 'error',
+                             'message': 'Отсутсвует id'})
+
+    questions = None
+    if is_questions:
+        try:
+            question = Question.objects.get(id=id)
+        except Question.DoesNotExist:
+            return JsonResponse({'status': 'error',
+                                 'message': 'Такого вопроса не существует'})
+        like, created = QuestionLike.objects.get_or_create(question=question, by_user=request.user)
+        rating = len(QuestionLike.objects.filter(question=question))
+        question.rating_num = rating
+        question.save()
+    else:
+        try:
+            answer = Answer.objects.get(id=id)
+        except Question.DoesNotExist:
+            return JsonResponse({'status': 'error',
+                                 'message': 'Такого ответа не существует'})
+        like, created = AnswerLike.objects.get_or_create(answer=answer, by_user=request.user)
+        rating = AnswerLike.objects.filter(answer=answer)
+        answer.rating_num = rating
+        answer.save()
+    like.is_like = is_like
+    like.save()
+    return JsonResponse({'status': 'ok',
+                         'answer': {
+                             'rating': rating
+                         }})

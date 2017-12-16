@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^question/(\d+)/$', views.question, name = 'questions'),
     url(r'^tag/(\w+)/', views.questions_tag, name = 'tag'),
     url(r'^logout/', views.logout, name = 'logout'),
+    url(r'app/like/', views.app_like, name='change_view'),
 ]

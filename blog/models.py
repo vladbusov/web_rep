@@ -60,29 +60,34 @@ class Tag(models.Model):
 		verbose_name_plural = 'теги'
 
 
-class Vote (models.Model):
-	voted_by = models.ForeignKey(User, verbose_name='оценено пользователем')
-	is_like = models.BooleanField(verbose_name='верный', default=True)
+class Like(models.Model):
+    by_user = models.ForeignKey(User, null=False, verbose_name=u"пользователь")
+    is_like = models.BooleanField(blank=True, default=True, verbose_name=u"лайк")
 
-	def __str__(self):
-		return ("дизлайк", "лайк")[self.is_like] + "пользователя" + self.voted_by.username
+    def __unicode__(self):
+        return "Лайк пользователя " + self.by_user.username
 
-	class Meta:
-		abstract = True
-		verbose_name = "оценка"
-		verbose_name_plural = "оценки"
-
-class QuestionVote (Vote):
-	question = models.ForeignKey(Question, verbose_name='оцененный вопрос')
-
-	objects = QuestionVoteManager()
-
-	class Meta:
-		unique_together = ("question", "voted_by")
+    class Meta:
+        abstract = True
+        verbose_name = u'лайк'
+        verbose_name_plural = u'лайки'
 
 
-class AnswerVote(Vote):
-	answer = models.ForeignKey(Answer, verbose_name='оцененный ответ')
+class QuestionLike(Like):
+    question = models.ForeignKey(Question, null=False, verbose_name="вопрос")
 
-	class Meta:
-		unique_together = ("answer", "voted_by")
+    def __unicode__(self):
+        return "Лайк пользователя " + self.by_user.username + " на вопрос " + self.question.title
+
+    class Meta:
+        unique_together = ("question", "by_user")
+
+
+class AnswerLike(Like):
+    answer = models.ForeignKey(Answer, null=False, verbose_name="ответ")
+
+    def __unicode__(self):
+        return "Лайк пользователя " + self.by_user.username + " на ответ " + self.answer.answer_text
+
+    class Meta:
+        unique_together = ("answer", "by_user")

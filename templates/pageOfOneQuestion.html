@@ -15,15 +15,15 @@
       <tbody>
         <tr>
           <td colspan="4" style="background-color: white; max-height: 400px;">
-              <div style="color: #262727">
+              <div style="color: #262727" data-id="{{ id }}">
                   <div class = "left" id="changeColor"  style="margin-top: 50px">
                     
                       <figure class="figure">
                         <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
                       </figure>
-                       <p style="background-color: white; font-size: 14px; width: 40px; font-weight:bold; border-radius: 4px; padding-left: 2px; margin-bottom: 1px;"> {{ question.rating_num }}</p>
-                        <a href="#"><img src="{% static 'images/like.png' %}" id="like"/></a>
-                        <a href="#"><img src="{% static 'images/dislike.png' %}" id="like"/></a>
+                       <p style="background-color: white; font-size: 14px; width: 40px; font-weight:bold; border-radius: 4px; padding-left: 2px; margin-bottom: 1px;" id="rating228"> {{ question.rating_num }}</p>
+                        <img src="{% static 'images/like.png' %}" id="like"/>
+                        <img src="{% static 'images/dislike.png' %}" id="dislike"/>
                   </div>
                   <div style="float: left; margin:20px; width: 80%;">
                       <h4 style="text-align:center;">{{ question.title }}</h4>
@@ -129,4 +129,8 @@
 
       </tbody>
     </table>
+
+
+    <script src="{% static 'js/jquery-3.2.1.js' type="text/javascript" %}"></script>
+    <script src="{%  static 'js/like.js' %}" type="text/javascript"></script>
     {% endblock %}
