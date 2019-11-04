@@ -1,83 +1,86 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-    {% block header %}
-    {% endblock %}
+{% block header %}
+{% endblock %}
 
-    {% block content %}
-      <tbody>
+{% block content %}
+    <tbody>
 
-      <table class="table">
-      <thead class="thead-inverse">
+    <table class="table">
+        <thead class="thead-inverse">
         <tr>
-          <th style="width: 200px;" colspan="3"> {% block menu %} {% endblock %}</th>
+            <th style="width: 200px;" colspan="3"> {% block menu %} {% endblock %}</th>
         </tr>
-      </thead>
+        </thead>
 
-      {% for item in posts %}
+        {% for item in posts %}
 
-        <tr>
-          <td colspan="4">
-              <div class="thd">
-                  <div class = "left" id="changeColor">
+            <tr>
+                <td colspan="4">
+                    <div class="thd">
+                        <div class="left" id="changeColor">
 
-                      <figure class="figure">
-                        <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-                      </figure>
-                      <p style="background-color: white; font-size: 14px; width: 40px; font-weight:bold; border-radius: 4px; padding-left: 2px; margin-bottom: 1px;"> {{ item.rating_num }}</p>
-                        <a href="#"><img src="{% static 'images/like.png' %}" id="like"/></a>
-                        <a href="#"><img src="{% static 'images/dislike.png' %}" id="like"/></a>
-                  </div>
-                  <div class="text">
-                    <p class="Ttl"><a href="#" class="Ttl">{{ item.title }}</a></p>
-                    <p class="fish">{{ item.text }}</p>
-                  </div>
-                  <div class="propwin">
-                        <a href ="#" style="margin-right: 35px;"> ответы(3) </a>
-                        Tags:
-                        {% for t in item.tags.all %}
-                            <a href= "{% url 'tag' t %}" class="question-tag">{{ t }}</a>
-                        {% endfor %}
-                  </div>
-                </div>
-          </td>
-        </tr>
+                            <figure class="figure">
+                                <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded"
+                                     alt="A generic square placeholder image with rounded corners in a figure.">
+                            </figure>
+                            <p style="background-color: white; font-size: 14px; width: 40px; font-weight:bold; border-radius: 4px; padding-left: 2px; margin-bottom: 1px;"> {{ item.rating_num }}</p>
+                            <a href="#"><img src="{% static 'images/like.png' %}" id="like"/></a>
+                            <a href="#"><img src="{% static 'images/dislike.png' %}" id="like"/></a>
+                        </div>
+                        <div class="text">
+                            <p class="Ttl"><a href="#" class="Ttl">{{ item.title }}</a></p>
+                            <p class="fish">{{ item.text }}</p>
+                        </div>
+                        <div class="propwin">
+                            <a href="#" style="margin-right: 35px;"> ответы(3) </a>
+                            Tags:
+                            {% for t in item.tags.all %}
+                                <a href="{% url 'tag' t %}" class="question-tag">{{ t }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
         {% endfor %}
 
 
-          <tr>
+        <tr>
             <td>
-                <nav><ul class="pagination">
-                    {% if 1 == page.number %}
-                    <li class="active">
-                    {% else %}
-                    <li>
-                    {% endif %}
-                    <a href="{{ paginator.baseurl }}1"> << </a>
-                    </li>
-                    {% for p in paginator.page_range %}
-                        {% if p >= paginator.startnav %}
-                            {% if p <= paginator.endnav %}
-                                {% if p == page.number %}
-                                <li class="active">
+                <nav>
+                    <ul class="pagination">
+                        {% if 1 == page.number %}
+                            <li class="active">
                                 {% else %}
-                                <li>
-                                {% endif %}
-                                    <a href="{{ paginator.baseurl }}{{ p }}">
+                            <li>
+                        {% endif %}
+                        <a href="{{ paginator.baseurl }}1"> << </a>
+                        </li>
+                        {% for p in paginator.page_range %}
+                            {% if p >= paginator.startnav %}
+                                {% if p <= paginator.endnav %}
+                                    {% if p == page.number %}
+                                        <li class="active">
+                                            {% else %}
+                                        <li>
+                                    {% endif %}
+                                <a href="{{ paginator.baseurl }}{{ p }}">
                                     {{ p }}</a>
                                 </li>
+                                {% endif %}
                             {% endif %}
+                        {% endfor %}
+                        {% if paginator.num_pages == page.number %}
+                            <li class="active">
+                                {% else %}
+                            <li>
                         {% endif %}
-                    {% endfor %}
-                    {% if paginator.num_pages == page.number %}
-                    <li class="active">
-                    {% else %}
-                    <li>
-                    {% endif %}
-                    <a href="{{ paginator.baseurl }}{{ paginator.num_pages }}"> >> </a>
-                </ul></nav>
+                        <a href="{{ paginator.baseurl }}{{ paginator.num_pages }}"> >> </a>
+                    </ul>
+                </nav>
             </td>
-          </tr>
-      </tbody>
+        </tr>
+        </tbody>
     </table>
 {% endblock %}

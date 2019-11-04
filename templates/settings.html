@@ -6,35 +6,35 @@
 {% endblock %}
 
 {% block content %}
-<table class="table">
-  <thead class="thead-inverse">
-    <tr>
-      <th style="width: 200px;" colspan="3"> Settings: </th>
-    </tr>
-  </thead>
-  <tbody style="background-color: white; padding: 20px;">
-    <tr>
-        <td>
-          <div style="margin: 10px;">
-          <h3>Настройки:</h3>
-           <form class="form-horizontal" method="post" >
-            {% csrf_token %}
-                <fieldset>
-                    {% for field in form %}
-                        <div>
-                            <label class="label">{{ field.label }}</label>
-                            <div>{{ field }}</div>
+    <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+            <th style="width: 200px;" colspan="3"> Settings:</th>
+        </tr>
+        </thead>
+        <tbody style="background-color: white; padding: 20px;">
+        <tr>
+            <td>
+                <div style="margin: 10px;">
+                    <h3>Настройки:</h3>
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        <fieldset>
+                            {% for field in form %}
+                                <div>
+                                    <label class="label">{{ field.label }}</label>
+                                    <div>{{ field }}</div>
+                                </div>
+                            {% endfor %}
+                        </fieldset>
+                        <div class="form-actions"><br/>
+                            <button type="submit" class="btn btn-primary">
+                                Сохранить настройки
+                            </button>
                         </div>
-                    {% endfor %}
-                </fieldset>
-                <div class="form-actions"><br/>
-                    <button type="submit" class="btn btn-primary">
-                        Сохранить настройки
-                    </button>
-                </div>
-            </form>
-        <td>
-    </tr>
-  </tbody>
-</table>
+                    </form>
+            <td>
+        </tr>
+        </tbody>
+    </table>
 {% endblock %}

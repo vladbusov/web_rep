@@ -6,39 +6,39 @@
 {% endblock %}
 
 {% block content %}
-<table class="table">
-  <thead class="thead-inverse">
-    <tr>
-      <th style="width: 200px;" colspan="3"> Спрашивайте ^_^ </th>
-    </tr>
-  </thead>
-  <tbody style="background-color: white; padding: 20px;">
-    <tr>
-        <td>
-          <div style="margin: 10px;">
-          <h3>Новый вопрос:</h3>
+    <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+            <th style="width: 200px;" colspan="3"> Спрашивайте ^_^</th>
+        </tr>
+        </thead>
+        <tbody style="background-color: white; padding: 20px;">
+        <tr>
+            <td>
+                <div style="margin: 10px;">
+                    <h3>Новый вопрос:</h3>
 
-              <form class="form-horizontal" method="post" >
-            {% csrf_token %}
-                <fieldset>
-                    {% for field in form %}
-                        <div class="control_group"
-                             {% if field.errors %}has-error{% endif %}>
-                            <label class="control-label">{{ field.label }}</label>
-                            <div class="controls">{{ field }}</div>
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        <fieldset>
+                            {% for field in form %}
+                                <div class="control_group"
+                                     {% if field.errors %}has-error{% endif %}>
+                                    <label class="control-label">{{ field.label }}</label>
+                                    <div class="controls">{{ field }}</div>
+                                </div>
+                            {% endfor %}
+                        </fieldset>
+                        <div class="form-actions"><br/>
+                            <button type="submit" class="btn btn-primary">
+                                Задать вопрос
+                            </button>
                         </div>
-                    {% endfor %}
-                </fieldset>
-                <div class="form-actions"><br/>
-                    <button type="submit" class="btn btn-primary">
-                        Задать вопрос
-                    </button>
-                </div>
-            </form>
+                    </form>
 
-          </div>
-        <td>
-    </tr>
-  </tbody>
-</table>
+                </div>
+            <td>
+        </tr>
+        </tbody>
+    </table>
 {% endblock %}

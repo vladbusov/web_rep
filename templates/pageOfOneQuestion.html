@@ -7,130 +7,135 @@
 
 {% block content %}
     <table class="table">
-      <thead class="thead-inverse">
+        <thead class="thead-inverse">
         <tr>
-          <th style="width: 200px;" colspan="3">Вопрос номер {{ id }}: <a href="#" id="hq">Hot questions</a></th>
+            <th style="width: 200px;" colspan="3">Вопрос номер {{ id }}: <a href="#" id="hq">Hot questions</a></th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr>
-          <td colspan="4" style="background-color: white; max-height: 400px;">
-              <div style="color: #262727" data-id="{{ id }}">
-                  <div class = "left" id="changeColor"  style="margin-top: 50px">
-                    
-                      <figure class="figure">
-                        <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-                      </figure>
-                       <p style="background-color: white; font-size: 14px; width: 40px; font-weight:bold; border-radius: 4px; padding-left: 2px; margin-bottom: 1px;" id="rating228"> {{ question.rating_num }}</p>
+            <td colspan="4" style="background-color: white; max-height: 400px;">
+                <div style="color: #262727" data-id="{{ id }}">
+                    <div class="left" id="changeColor" style="margin-top: 50px">
+
+                        <figure class="figure">
+                            <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded"
+                                 alt="A generic square placeholder image with rounded corners in a figure.">
+                        </figure>
+                        <p style="background-color: white; font-size: 14px; width: 40px; font-weight:bold; border-radius: 4px; padding-left: 2px; margin-bottom: 1px;"
+                           id="rating228"> {{ question.rating_num }}</p>
                         <img src="{% static 'images/like.png' %}" id="like"/>
                         <img src="{% static 'images/dislike.png' %}" id="dislike"/>
-                  </div>
-                  <div style="float: left; margin:20px; width: 80%;">
-                      <h4 style="text-align:center;">{{ question.title }}</h4>
+                    </div>
+                    <div style="float: left; margin:20px; width: 80%;">
+                        <h4 style="text-align:center;">{{ question.title }}</h4>
                         <hr>
                         <p> {{ question.text }}</p>
                         <hr>
                         Tags:
                         {% for tag in question.tags.all %}
-                            <a href= "{% url 'tag' tag %}" class="question-tag">{{ tag }}</a> ,
+                            <a href="{% url 'tag' tag %}" class="question-tag">{{ tag }}</a> ,
                         {% endfor %}
                     </div>
                 </div>
-          </td>
+            </td>
         </tr>
         {% for comment in posts %}
-        <tr>
+            <tr>
                 <td colspan="4">
                     <div class="thd">
-                        <div class = "left">
+                        <div class="left">
                             <figure class="figure">
-                              <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                                <img src="{% static 'images/g.png' %}" class="figure-img img-fluid rounded"
+                                     alt="A generic square placeholder image with rounded corners in a figure.">
                             </figure>
                             <p style="background-color: white; font-size: 14px; width: 40px; font-weight:bold; border-radius: 4px; padding-left: 2px; margin-bottom: 1px;"> {{ comment.rating_num }}</p>
-                        <a href="#"><img src="{% static 'images/like.png' %}" id="like"/></a>
-                        <a href="#"><img src="{% static 'images/dislike.png' %}" id="like"/></a>
+                            <a href="#"><img src="{% static 'images/like.png' %}" id="like"/></a>
+                            <a href="#"><img src="{% static 'images/dislike.png' %}" id="like"/></a>
                         </div>
                         <div class="text">
-                          <p class="fish" style="margin-top: 30px;">{{ comment.content }}
-                            {% if comment.is_correct == False %}
-                              <form>
-                                    <div class="form-check" style="color:white">
+                            <p class="fish" style="margin-top: 30px;">{{ comment.content }}
+                                {% if comment.is_correct == False %}
+                                    <form>
+                                        <div class="form-check" style="color:white">
                                             <label class="form-check-label">
-                                              <input class="form-check-input" type="checkbox" value="">
+                                                <input class="form-check-input" type="checkbox" value="">
                                                 Проверено
                                             </label>
-                                          </div>
-                                          <button type="submit" class="btn btn-primary">Отметить</button>                                      
-                                </form>
-                            {% endif %}
-                          </p>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Отметить</button>
+                                    </form>
+                                {% endif %}
+                            </p>
                         </div>
-                      </div>
+                    </div>
                 </td>
             </tr>
-            {% endfor %}
-            <tr>
+        {% endfor %}
+        <tr>
             <td>
-                <nav><ul class="pagination">
-                    {% if 1 == page.number %}
-                    <li class="active">
-                    {% else %}
-                    <li>
-                    {% endif %}
-                    <a href="{{ paginator.baseurl }}1"> << </a>
-                    </li>
-                    {% for p in paginator.page_range %}
-                        {% if p >= paginator.startnav %}
-                            {% if p <= paginator.endnav %}
-                                {% if p == page.number %}
-                                <li class="active">
+                <nav>
+                    <ul class="pagination">
+                        {% if 1 == page.number %}
+                            <li class="active">
                                 {% else %}
-                                <li>
-                                {% endif %}
-                                    <a href="{{ paginator.baseurl }}{{ p }}">
+                            <li>
+                        {% endif %}
+                        <a href="{{ paginator.baseurl }}1"> << </a>
+                        </li>
+                        {% for p in paginator.page_range %}
+                            {% if p >= paginator.startnav %}
+                                {% if p <= paginator.endnav %}
+                                    {% if p == page.number %}
+                                        <li class="active">
+                                            {% else %}
+                                        <li>
+                                    {% endif %}
+                                <a href="{{ paginator.baseurl }}{{ p }}">
                                     {{ p }}</a>
                                 </li>
+                                {% endif %}
                             {% endif %}
+                        {% endfor %}
+                        {% if paginator.num_pages == page.number %}
+                            <li class="active">
+                                {% else %}
+                            <li>
                         {% endif %}
-                    {% endfor %}
-                    {% if paginator.num_pages == page.number %}
-                    <li class="active">
-                    {% else %}
-                    <li>
-                    {% endif %}
-                    <a href="{{ paginator.baseurl }}{{ paginator.num_pages }}"> >> </a>
-                </ul></nav>
+                        <a href="{{ paginator.baseurl }}{{ paginator.num_pages }}"> >> </a>
+                    </ul>
+                </nav>
             </td>
-          </tr>
+        </tr>
         {% if user_name is not None %}
-          <tr>
+            <tr>
                 <td style="background-color: white; padding: 20px;">
                     <h5>Ввести свой ответ:</h5>
-                    <form class="form-horizontal" method="post" >
-                    {% csrf_token %}
-                    <fieldset>
-                    {% for field in form %}
-                        <div class="control_group"
-                             {% if field.errors %}has-error{% endif %}>
-                            <label class="control-label">{{ field.label }}</label>
-                            <div class="controls">{{ field }}</div>
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        <fieldset>
+                            {% for field in form %}
+                                <div class="control_group"
+                                     {% if field.errors %}has-error{% endif %}>
+                                    <label class="control-label">{{ field.label }}</label>
+                                    <div class="controls">{{ field }}</div>
+                                </div>
+                            {% endfor %}
+                        </fieldset>
+                        <div class="form-actions"><br/>
+                            <button type="submit" class="btn btn-primary">
+                                Ответить
+                            </button>
                         </div>
-                    {% endfor %}
-                    </fieldset>
-                <div class="form-actions"><br/>
-                    <button type="submit" class="btn btn-primary">
-                        Ответить
-                    </button>
-                </div>
-                </form>
+                    </form>
                 </td>
-                </tr>
+            </tr>
         {% endif %}
 
-      </tbody>
+        </tbody>
     </table>
 
 
     <script src="{% static 'js/jquery-3.2.1.js' type="text/javascript" %}"></script>
-    <script src="{%  static 'js/like.js' %}" type="text/javascript"></script>
-    {% endblock %}
+    <script src="{% static 'js/like.js' %}" type="text/javascript"></script>
+{% endblock %}
